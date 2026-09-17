@@ -1,0 +1,6 @@
+Имя: Сергей
+Группа: ИТ-9.24.3-ДН
+Команды:
+docker run -d --name my-copy -p 127.0.0.1:8082:80 student-site:v2
+docker stop my-site
+docker start my-site
