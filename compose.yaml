@@ -1,0 +1,34 @@
+name: docker-lesson-02
+services:
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: student
+      MARIADB_PASSWORD: lab-db-pass
+      MARIADB_ROOT_PASSWORD: lab-root-pass
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+  wordpress:
+    image: wordpress:apache
+    ports:
+      - "127.0.0.1:8090:80"
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: student
+      WORDPRESS_DB_PASSWORD: lab-db-pass
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - wp_data:/var/www/html
+volumes:
+  db_data:
+  wp_data:
