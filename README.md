@@ -66,7 +66,9 @@ docker build -t app:v1
 ## Архитектура
 
 **Docker Daemon** - главный процесс Docker.
+
 **Docker Client** - интерфейс командной строки.
+
 **Docker API** - интерфейс общения CLI и движка.
 
 ## Команды
